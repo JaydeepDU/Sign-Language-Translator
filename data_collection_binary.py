@@ -6,18 +6,11 @@ import os, os.path
 from keras.models import load_model
 import traceback
 
-
-
-#model = load_model('C:\\Users\\devansh raval\\PycharmProjects\\pythonProject\\cnn9.h5')
-
 capture = cv2.VideoCapture(0)
 
 hd = HandDetector(maxHands=1)
 hd2 = HandDetector(maxHands=1)
-# #training data
-# count = len(os.listdir("D://sign2text_dataset_2.0/Binary_imgs//A"))
 
-#testing data
 count = len(os.listdir("D://test_data_2.0//Gray_imgs//A"))
 
 
@@ -28,9 +21,9 @@ offset = 30
 step = 1
 flag=False
 suv=0
-#C:\Users\devansh raval\PycharmProjects\pythonProject
+
 white=np.ones((400,400),np.uint8)*255
-cv2.imwrite("C:\\Users\\devansh raval\\PycharmProjects\\pythonProject\\white.jpg",white)
+cv2.imwrite("white.jpg",white)
 
 
 while True:
@@ -44,14 +37,10 @@ while True:
             hand = hands[0]
             x, y, w, h = hand['bbox']
             image = frame[y - offset:y + h + offset, x - offset:x + w + offset]
-            #image1 = imgg[y - offset:y + h + offset, x - offset:x + w + offset]
 
 
 
-            roi = image     #rgb image without drawing
-           # roi1 = image1   #rdb image with drawing
-
-
+            roi = image     
 
             # #for simple gray image without draw
             gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
@@ -136,9 +125,8 @@ while True:
 
             image1 = frame[y - offset:y + h + offset, x - offset:x + w + offset]
 
-            roi1 = image1   #rdb image with drawing
-
-            #for gray image with drawings
+            roi1 = image1  
+            
             gray1 = cv2.cvtColor(roi1, cv2.COLOR_BGR2GRAY)
             blur1 = cv2.GaussianBlur(gray1, (1, 1), 2)
 
@@ -189,10 +177,7 @@ while True:
                 p_dir="A"
                 c_dir="a"
             flag = False
-            # #training data
-            # count = len(os.listdir("D://sign2text_dataset_2.0/Binary_imgs//" + p_dir + "//"))
-
-            # test data
+            
             count = len(os.listdir("D://test_data_2.0/Gray_imgs//" + p_dir + "//"))
 
         if interrupt & 0xFF == ord('a'):
@@ -208,14 +193,7 @@ while True:
             if suv==50:
                 flag=False
             if step%2==0:
-                # #this is for training data collection
-                # cv2.imwrite("D:\\sign2text_dataset_2.0\\Binary_imgs\\" + p_dir + "\\" + c_dir + str(count) + ".jpg", img_final)
-                # cv2.imwrite("D:\\sign2text_dataset_2.0\\Gray_imgs\\" + p_dir + "\\" + c_dir + str(count) + ".jpg", img_final1)
-                # cv2.imwrite("D:\\sign2text_dataset_2.0\\Gray_imgs_with_drawing\\" + p_dir + "\\" + c_dir + str(count) + ".jpg", img_final2)
-
-                # this is for testing data collection
-                # cv2.imwrite("D:\\test_data_2.0\\Binary_imgs\\" + p_dir + "\\" + c_dir + str(count) + ".jpg",
-                #             img_final)
+                
                 cv2.imwrite("D:\\test_data_2.0\\Gray_imgs\\" + p_dir + "\\" + c_dir + str(count) + ".jpg",
                             img_final1)
                 cv2.imwrite(
